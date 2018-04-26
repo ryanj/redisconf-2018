@@ -19,11 +19,11 @@ Use a rolling deployment to show outage-free updates
 
 ## Test Demos
 
-Deploy the same thing, but tell Redis to use a Persistent Volume
+Deploy the same thing in a new project, while choosing the other (non-ephemeral) "Redis" service from the catalog.
 
-Test scaling and autorecovery
+Test scaling and autorecovery.  Scale the web instances up to 6, then kill four of them. Show autorecovery. Reload the web page to show that kubernetes can automatically route around and restore the availability of these types of services without any visible disruption for external users.
 
-Run `redis-cli cluster nodes` in the redis Terminal
+Run `redis-cli cluster nodes` in the Terminal of the redis pod, to confirm that we are *not* configured to run Redis as a cluster.
 
 ## Production Demos
 
@@ -31,11 +31,17 @@ Run `redis-cli cluster nodes` in the redis Terminal
 
 Install the template (NOT IN PRODUCTION):
 
-Launch your Redis Cluster using the Service Catalog
+```bash
+oc create -f https://raw.githubusercontent.com/ryanj/redisconf-2018/master/redis-cluster-template.yml
+```
 
-In a Web Terminal, run: `redis-cli cluster nodes`
+This should install a new `Redis Cluster` option to your Service Catalog!
 
-Join the cluster: 
+Use your web browser to deploy the Redis Cluster in a new project.
+
+After one of the pods is deployed, run: `redis-cli cluster nodes` in it's web terminal.
+
+From your laptop, run the following to join the cluster: 
 
 ```bash
 kubectl exec -it redis-cluster-0 -- redis-trib create --replicas 1 \
