@@ -45,16 +45,18 @@ Use your web browser to deploy the Redis Cluster in a new project.
 
 After one of the pods is deployed, run: `redis-cli cluster nodes` in it's web terminal.
 
-From your laptop, run the following to join the cluster: 
+From your laptop, **after all 6 pods are deployed**, run the following to join this cluster of redis nodes: 
 
 ```bash
 kubectl exec -it redis-cluster-0 -- redis-trib create --replicas 1 \
 $(kubectl get pods -l app=redis-cluster -o jsonpath='{range.items[*]}{.status.podIP}:6379 ')
 ```
 
+Choose "`yes`" to confirm your cluster configuration update.  Run `kubectl exec -it redis-cluster-0 -- redis-cli cluster nodes` to confirm that all six pods have been successfully configured as a cluster.
+
 Demo Autorecovery of nodes in a clustered Redis database:
 
-1. In a Web Terminal, run: `watch redis-cli cluster nodes`
+1. In an OpenShift Web Terminal, run: `watch redis-cli cluster nodes`, or try `kubectl exec -it redis-cluster-0 -- watch redis-cli cluster nodes` from your laptop.
 
 2. Delete two nodes and observe the result: 
 
