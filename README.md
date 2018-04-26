@@ -7,15 +7,19 @@ To follow along with these examples, you'll need access to an OpenShift environm
 ## Dev Demos
 Redis-powered web solutions can be assembed piece by piece using the Service Catalog.
 
-Use the Service Catalog to lanch "*Redis (Ephemeral)*", then try building this repo using the Service Catalog's *NodeJS* runtime.
+Use the Service Catalog to lanch the "**Redis (Ephemeral)**" service. Make sure to choose the option to "create a secret" / binding during the setup. 
 
-**What Happens?**
+Next, try building *this repo* using the Service Catalog's *NodeJS* runtime: https://github.com/ryanj/redisconf-2018
+
+When the build and deployment are completed, check OpenShift's dashboard Overview page to find the resulting web service address (or **Route**).  Open the link to see view the resulting service which echoes out the available redis integration variables and credentials.
+
+**What do you find?**
 
 Access the container environments via the web-based *Terminal* to investigate.
 
-Show realtime changes via the web container
+Show realtime changes via the web container: Edit `index.html` in a terminal, then reload the page to preview your changes
 
-Use a rolling deployment to show outage-free updates
+Use a rolling deployment to demo outage-free updates
 
 ## Test Demos
 
@@ -48,7 +52,7 @@ kubectl exec -it redis-cluster-0 -- redis-trib create --replicas 1 \
 $(kubectl get pods -l app=redis-cluster -o jsonpath='{range.items[*]}{.status.podIP}:6379 ')
 ```
 
-Test Autorecovery:
+Demo Autorecovery of nodes in a clustered Redis database:
 
 1. In a Web Terminal, run: `watch redis-cli cluster nodes`
 
