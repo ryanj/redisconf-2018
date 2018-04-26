@@ -4,17 +4,17 @@ labels:
   app: redis-cluster-demo
   template: redis-cluster-demo
 message: |-
-  For more information about using this template, including OpenShift considerations, see https://github.com/ryanj/redis-cluster-demo/blob/master/README.md.
+  FOR DEMO PURPOSES ONLY - NOT FOR PRODUCTION USE!! For more information about using this template, including OpenShift considerations, see https://github.com/ryanj/redis-cluster-demo/blob/master/README.md.
 metadata:
   annotations:
     description: |-
-      An example clustered Redis database
+      A demo example of a clustered Redis database (6 nodes); DO NOT USE IN PRODUCTION!
     iconClass: icon-redis
     openshift.io/display-name: Redis-Cluster
-    openshift.io/documentation-url: https://github.com/ryanj/redis-cluster
-    openshift.io/long-description: An example clustered Redis database
+    openshift.io/documentation-url: https://github.com/ryanj/redisconf-2018
+    openshift.io/long-description: An example clustered Redis database; not for use in production
     openshift.io/provider-display-name: RyanJ
-    openshift.io/support-url: https://quay.io/repository/ryanj/redis-cluster-demo
+    openshift.io/support-url: https://quay.io/repository/ryanj/redisconf-2018
     tags: quickstart,redis
     template.openshift.io/bindable: "false"
   creationTimestamp: 2018-04-24T19:44:33Z
