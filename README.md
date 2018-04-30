@@ -33,32 +33,42 @@ Run `redis-cli cluster nodes` in the Terminal of the redis pod, to confirm that 
 
 *WARNING: NOT FOR USE IN PRODUCTION*
 
-Install the template (NOT IN PRODUCTION):
+**Step1:** Install the template (NOT IN PRODUCTION!)
+
+Switch to a new project, then use `oc create` to add a new `Redis Cluster` catalog item:
 
 ```bash
 oc create -f https://raw.githubusercontent.com/ryanj/redisconf-2018/master/redis-cluster-template.yml
 ```
 
-This should install a new `Redis Cluster` option to your Service Catalog!
+The above command should install a new `Redis Cluster` option to your Service Catalog!
 
-Use your web browser to deploy the Redis Cluster in a new project.
+**Step2:** Use your web browser to deploy the Redis Cluster in a new project
 
-After one of the pods is deployed, run: `redis-cli cluster nodes` in it's web terminal.
+Use the OpenShift web console to switch to your latest project. Then use the *`Add to Project`* button to find the new Redis Cluster catalog entry.  Launch it using the available defaults.
 
-From your laptop, **after all 6 pods are deployed**, run the following to join this cluster of redis nodes: 
+After one of the first pod is deployed, use the available web terminal to run: `redis-cli cluster nodes`
+
+The output should show that clustering capabilities are available, but that this node is not yet configured to talk to it's peers.
+
+**Step3:** Configure the cluster
+
+**After all 6 pods are deployed**, run the following **from your laptop** to join this cluster of Redis nodes: 
 
 ```bash
 kubectl exec -it redis-cluster-0 -- redis-trib create --replicas 1 \
 $(kubectl get pods -l app=redis-cluster -o jsonpath='{range.items[*]}{.status.podIP}:6379 ')
 ```
 
-Choose "`yes`" to confirm your cluster configuration update.  Run `kubectl exec -it redis-cluster-0 -- redis-cli cluster nodes` to confirm that all six pods have been successfully configured as a cluster.
+Choose "`yes`" to confirm your cluster configuration update.  
 
-Demo Autorecovery of nodes in a clustered Redis database:
+Run `kubectl exec -it redis-cluster-0 -- redis-cli cluster nodes` to confirm that all six pods have been successfully configured as a cluster.
 
-1. In an OpenShift Web Terminal, run: `watch redis-cli cluster nodes`, or try `kubectl exec -it redis-cluster-0 -- watch redis-cli cluster nodes` from your laptop.
+**Step4:** Demo Autorecovery of DB tier:
 
-2. Delete two nodes and observe the result: 
+1. In an OpenShift Web Terminal, run: `watch redis-cli cluster nodes`, or try `kubectl exec -it redis-cluster-0 -- watch redis-cli cluster nodes` from your laptop.  This should provide a dashboard of the current cluster state.
+
+2. Delete two master Redis nodes, and observe the results in your other terminal:
 
 ```bash
 kubectl delete po/redis-cluster-1 po/redis-cluster-2
