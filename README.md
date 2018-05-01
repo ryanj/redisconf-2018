@@ -82,6 +82,7 @@ If you are interested in learning about [Redis Operators for Kubernetes](https:/
 
 1. https://github.com/spotahome/redis-operator
 2. https://github.com/jw-s/redis-operator
+3. [CoreOS's new Operator Toolkit](https://coreos.com/blog/introducing-operator-framework)
 
 # Thank You!
 
