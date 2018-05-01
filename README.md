@@ -1,4 +1,4 @@
-# RedisConf 2018 Demos
+# RedisConf 2018 Demos by RyanJ
 
 Slides: http://bit.ly/redis-devtestprod
 
@@ -73,3 +73,16 @@ Run `kubectl exec -it redis-cluster-0 -- redis-cli cluster nodes` to confirm tha
 ```bash
 kubectl delete po/redis-cluster-1 po/redis-cluster-2
 ```
+
+### Wrap up
+
+See [Sander Ploegsma's blog post on "Running Redis Cluster on Kubernetes"](https://sanderp.nl/running-redis-cluster-on-kubernetes-e451bda76cad) for additional Redis clustering examples.
+
+If you are interested in learning about [Redis Operators for Kubernetes](https://product.spotahome.com/redis-operator-for-kubernetes-released-9c6775e7da9b), take a look at:
+
+1. https://github.com/spotahome/redis-operator
+2. https://github.com/jw-s/redis-operator
+
+# Thank You!
+
+Slides: http://bit.ly/redis-devtestprod
